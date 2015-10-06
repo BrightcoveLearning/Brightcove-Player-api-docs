@@ -35,7 +35,7 @@ module.exports = function (grunt) {
     grunt.task.registerTask('createFiles', 'Create files into which docs will be injected', function () {
         var classData = [],
             docData = '',
-            contentStr = '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title></title><script src="//use.edgefonts.net/source-code-pro.js">\n // font for code blocks \n</script><link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <!-- there are many other style for highlighted code here: https://cdnjs.com/libraries/highlight.js --><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/atelier-forest.light.min.css"><link rel="stylesheet" type="text/css" href="css/api-docs.css"></head><body></body></html>',
+            contentStr = '<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" /><title>vjs.Button</title> <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"> <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css"> <script src="//use.edgefonts.net/source-code-pro.js"></script> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css"> <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/atelier-forest.light.min.css"> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <script> (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,"script","//www.google-analytics.com/analytics.js","ga"); ga("create", "UA-2728311-29", "auto"); ga("send", "pageview"); </script> <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js"></script> </head><body><!-- header navbar --> <div id="navWrapper" class="fixed"></div> <!-- breadcrumbs --> <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav> <!-- search --> <div id="searchModal" class="reveal-modal" data-reveal></div> <!-- content --> <div class="row">  <div id="main" class="large-10 small-12 columns"></div> </div><!-- bcl scripts --> <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.2/handlebars.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script> <script src="//docs.brightcove.com/en/scripts/log.js"></script> <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script> <script src="//docs.brightcove.com/en/scripts/bcls-doc-site-v1.js"></script> <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script> <script> $(document).foundation(); </script></body> </html>',
             DOMParser = require('xmldom').DOMParser,
             XMLSerializer = require('xmldom').XMLSerializer,
             doc,
@@ -328,7 +328,7 @@ module.exports = function (grunt) {
                 constructorParams = [],
                 text;
             // add main content wrapper
-            doc_body.appendChild(mainContent);
+            // doc_body.appendChild(mainContent);
             main = doc.getElementById('main');
 
             // add elements
@@ -810,10 +810,7 @@ module.exports = function (grunt) {
             doc_body = doc.getElementsByTagName('body')[0];
             title = doc.getElementsByTagName('title')[0];
             // content wrapper
-            mainContent = createEl('div', {
-                id: 'main',
-                class: 'section'
-            });
+            mainContent = doc.getElementById('main');
             // src file is the js file of the same name
             srcFileName = docFileName.replace('.html', '.js')
             // video.js is a special case - all others will be the same
@@ -894,12 +891,9 @@ module.exports = function (grunt) {
                 addHeaderContent(function () {
                     addMembersContent(function () {
                         // add scripts to highlight syntax in code blocks
-                        var highlighter = createEl('script', {src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js'});
-                        addText(highlighter, '\n // syntax highlighter for code samples \n');
-                        doc_body.appendChild(highlighter);
-                        highlighter = createEl('script', {src: './js/highlight-syntax.js'});
-                        addText(highlighter, '\n // activates syntax highlighting \n');
-                        doc_body.appendChild(highlighter);
+                        var footer = createEl('div', {'class': 'footer text-center'}),
+                            footerLink = createEl('a', {'id': 'feedbackMail', 'href': 'mailto:docs@brightcove.com'}),
+                            text
                         // now we're ready to write the file
                         callback();
                     });
