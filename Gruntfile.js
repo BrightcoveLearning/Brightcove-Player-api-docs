@@ -898,7 +898,9 @@ module.exports = function (grunt) {
                             scriptText = doc.createTextNode('var feedbackMail = document.getElementById("feedbackMail");feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));');
                             footer.appendChild(footerLink);
                             footerLink.appendChild(text);
-                            
+                            doc_body.appendChild(footer);
+                            doc_body.appendChild(fofooterScript);
+
                         // now we're ready to write the file
                         callback();
                     });
