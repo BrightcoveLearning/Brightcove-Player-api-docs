@@ -893,7 +893,12 @@ module.exports = function (grunt) {
                         // add scripts to highlight syntax in code blocks
                         var footer = createEl('div', {'class': 'footer text-center'}),
                             footerLink = createEl('a', {'id': 'feedbackMail', 'href': 'mailto:docs@brightcove.com'}),
-                            text
+                            text = doc.createTextNode('Questions or comments?'),
+                            footerScript = createEl('script'),
+                            scriptText = doc.createTextNode('var feedbackMail = document.getElementById("feedbackMail");feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));');
+                            footer.appendChild(footerLink);
+                            footerLink.appendChild(text);
+                            
                         // now we're ready to write the file
                         callback();
                     });
