@@ -35,7 +35,7 @@ module.exports = function (grunt) {
     grunt.task.registerTask('createFiles', 'Create files into which docs will be injected', function () {
         var classData = [],
             docData = '',
-            contentStr = '<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" /><title></title> <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"> <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css"> <script src="//use.edgefonts.net/source-code-pro.js">//comment</script> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css"> <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/atelier-forest.light.min.css"> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <script> (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,"script","//www.google-analytics.com/analytics.js","ga"); ga("create", "UA-2728311-29", "auto"); ga("send", "pageview"); </script> <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js">//comment</script> </head><body><!-- header navbar --> <div id="navWrapper" class="fixed"></div> <!-- breadcrumbs --> <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav> <!-- search --> <div id="searchModal" class="reveal-modal" data-reveal></div> <!-- content --> <div class="row">  <div id="main" class="large-10 small-12 columns"></div> </div></body> </html>',
+            contentStr = '<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" /><title></title> <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"> <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.css"> <script src="//use.edgefonts.net/source-code-pro.js">//comment</script> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css"> <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/atelier-forest.light.min.css"> <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css"> <script> (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,"script","//www.google-analytics.com/analytics.js","ga"); ga("create", "UA-2728311-29", "auto"); ga("send", "pageview"); </script> <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/vendor/modernizr.js">//comment</script> </head><body><div id="navWrapper" class="fixed"><!-- header navbar --> </div>  <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"><!-- breadcrumbs --></nav>  <div id="searchModal" class="reveal-modal" data-reveal><!-- search --></div>  <div class="row"><div id="inPageNav" class="sidebar large-2 columns show-for-large-up"><!-- sidenav --></div>  <div id="main" class="large-10 small-12 columns"><!-- content --></div> </div></body> </html>',
             DOMParser = require('xmldom').DOMParser,
             XMLSerializer = require('xmldom').XMLSerializer,
             doc,
@@ -53,6 +53,7 @@ module.exports = function (grunt) {
             // elements
             mainContent,
             main,
+			inPageNav,
             doc_body,
             docContentStr;
         //read the JSDoc JSON into a variable
@@ -429,8 +430,9 @@ module.exports = function (grunt) {
          */
         function addIndex(callback) {
             var section = createEl('section', {
-                id: 'index',
-                class: 'side-nav'
+                id: 'sideNav',
+                class: 'side-nav',
+                style: 'float:left;max-width: 20%;margin-left:1em;'
             }),
                 navHeader = createEl('h2', {
                     class: 'sideNavHeader'
@@ -557,7 +559,7 @@ module.exports = function (grunt) {
             }
             section.appendChild(navHeader);
             section.appendChild(memberIndex);
-            mainContent.appendChild(section);
+            inPageNav.appendChild(section);
             callback();
         };
         /**
@@ -811,6 +813,7 @@ module.exports = function (grunt) {
             title = doc.getElementsByTagName('title')[0];
             // content wrapper
             mainContent = doc.getElementById('main');
+			inPageNav = doc.getElementById('inPageNav');
             // src file is the js file of the same name
             srcFileName = docFileName.replace('.html', '.js')
             // video.js is a special case - all others will be the same
@@ -900,31 +903,35 @@ module.exports = function (grunt) {
                             scriptEl;
                             footer.appendChild(footerLink);
                             footerLink.appendChild(text);
+                            footerScript.appendChild(scriptText);
                             doc_body.appendChild(footer);
                             doc_body.appendChild(footerScript);
                             scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
+                            doc_body.appendChild(scriptEl);
+                            scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js'});
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.2/handlebars.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//docs.brightcove.com/en/scripts/docs-nav-data.min.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script', {'src': '//docs.brightcove.com/en/scripts/bcls-doc-site-v1.js'});
-                            addText(scriptEl, '//comment');
+                            addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script');
-                            scriptText = doc.createTextNode('$(document).foundation();');
+                            scriptText = doc.createTextNode('\n $(document).foundation(); \n');
                             scriptEl.appendChild(scriptText);
                             doc_body.appendChild(scriptEl);
                         // now we're ready to write the file
