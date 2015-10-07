@@ -121,21 +121,21 @@ var BCLSVJS = (function (window, document, docData) {
         var doc_body = document.getElementsByTagName('body')[0],
             mainContent = createEl('div', {id: 'main'}),
             topSection = createEl('section', {id: 'top', class: 'section'}),
-            mainLink = createEl('a', {href: '//docs.videojs.com/', style: 'float:right;font-weight:bold;margin-top:-3em;background-color:#ECEEF1;padding:2px 4px;'}),
+            //mainLink = createEl('a', {href: '//docs.videojs.com/', style: 'float:right;font-weight:bold;margin-top:-3em;background-color:#ECEEF1;padding:2px 4px;'}),
             header = createEl('h1'),
-            text = document.createTextNode('video.js API Documentation Index'),
+            text = document.createTextNode('Brightcove Player API Documentation Index'),
             topP,
             topPtext,
             topLink,
             topLinkStrong;
         // add elements
-        mainLink.appendChild(document.createTextNode('Documentation Home'));
-        topSection.appendChild(mainLink);
+        // mainLink.appendChild(document.createTextNode('Documentation Home'));
+        // topSection.appendChild(mainLink);
         header.appendChild(text);
         topSection.appendChild(header);
         // add paragraph for videojs function
         topP = createEl('p');
-        topPtext = document.createTextNode('If you are new to video.js, look first at ');
+        topPtext = document.createTextNode('If you are new to the Brightcove Player API, look first at ');
         topP.appendChild(topPtext);
         topLink = createEl('a', {href: 'video.html'});
         topP.appendChild(topLink);
