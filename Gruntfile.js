@@ -557,7 +557,7 @@ module.exports = function (grunt) {
             }
             section.appendChild(navHeader);
             section.appendChild(memberIndex);
-            doc_body.appendChild(section);
+            main.appendChild(section);
             callback();
         };
         /**
