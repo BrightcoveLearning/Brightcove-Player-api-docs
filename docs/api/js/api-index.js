@@ -260,9 +260,9 @@ var BCLSVJS = (function (window, document, docData) {
         title.innerHTML = 'API Documentation Index';
         // remove any private items
         privateItems = findObjectsInArray(classes, 'access', 'private');
-        bclslog('privateItems', privateItems);
+        // bclslog('privateItems', privateItems);
         j = privateItems.length;
-        bclslog('j', j);
+        // bclslog('j', j);
         while (j > 0) {
             j--;
             classes.splice(privateItems[j], 1);
