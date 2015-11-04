@@ -965,6 +965,9 @@ module.exports = function (grunt) {
                             scriptEl = createEl('script', {'src': '//docs.brightcove.com/en/scripts/bcls-doc-site-v1.js'});
                             addText(scriptEl, '//comment \n');
                             doc_body.appendChild(scriptEl);
+                            scriptEl = createEl('script', {'src': './js/highlight-syntax.js'});
+                            addText(scriptEl, '//comment \n');
+                            doc_body.appendChild(scriptEl);
                             scriptEl = createEl('script');
                             scriptText = doc.createTextNode('\n $(document).foundation(); \n');
                             scriptEl.appendChild(scriptText);
