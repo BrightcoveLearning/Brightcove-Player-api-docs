@@ -136,7 +136,7 @@ var BCLSVJS = (function (window, document, docData) {
         topSection.appendChild(header);
         // add paragraph for videojs function
         topP = createEl('p');
-        topPtext = document.createTextNode('If you are new to the Brightcove Player API, look first at the ');
+        topPtext = document.createTextNode('Note that this is the Brightcove Player 2.0 (pre-lease) API documentation! If you are new to the Brightcove Player API, look first at the ');
         topP.appendChild(topPtext);
         topLink = createEl('a', {href: 'player.html'});
         topP.appendChild(topLink);
