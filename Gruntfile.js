@@ -24,7 +24,20 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 src: 'doc-data-full.js',
-                dest: 'doc-data.js'
+                dest: './docs/api/js/doc-data.js'
+            }
+        },
+        copy: {
+          fontawesome: {
+            files: [
+              {
+                expand: true,
+                src: ['node_modules/font-awesome/fonts/*'],
+                dest: 'docs/fonts',
+                filter: 'isFile',
+                flatten: true
+              }
+            ]
             }
         }
     });
@@ -32,6 +45,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.task.registerTask('createFiles', 'Create files into which docs will be injected', function () {
         var classData = [],
             docData = '',
@@ -356,7 +370,8 @@ module.exports = function (grunt) {
                 }),
                 description = createEl('div', {
                     style: 'border:none',
-                    id: 'classDescription'
+                    id: 'classDescription',
+                    class: 'description'
                 }),
                 constructorHeader = createEl('h3'),
                 constructorPre = createEl('pre'),
@@ -384,7 +399,7 @@ module.exports = function (grunt) {
                 topSection.appendChild(extendsNode);
                 addText(extendsNode, 'EXTENDS: ');
                 extendsLink = createEl('a', {
-                    href: parentClassFilePath + doc_data.parentClasses[0].headerInfo.meta.filename
+                    href: doc_data.parentClasses[0].headerInfo.meta.filename.replace('.js', '.html')
                 });
                 extendsNode.appendChild(extendsLink);
                 addText(extendsLink, doc_data.parentClasses[0].headerInfo.meta.filename);
@@ -980,6 +995,6 @@ module.exports = function (grunt) {
         };
     });
     // Default task.
-    grunt.registerTask('no-clone', ['shell:generateJSON', 'concat', 'uglify', 'createFiles']);
+    grunt.registerTask('no-clone', ['shell:generateJSON', 'copy:fontawesome', 'concat', 'uglify', 'createFiles']);
     grunt.registerTask('default', ['shell:cloneVideoJS', 'no-clone']);
 }
