@@ -67,7 +67,7 @@ module.exports = function (grunt) {
             // elements
             mainContent,
             main,
-			inPageNav,
+            inPageNav,
             doc_body,
             docContentStr;
         //read the JSDoc JSON into a variable
@@ -191,7 +191,7 @@ module.exports = function (grunt) {
                 return false;
             }
             return true;
-        };
+        }
         /**
          * determines whether specified item is in an array
          *
@@ -208,7 +208,7 @@ module.exports = function (grunt) {
                 }
             }
             return false;
-        };
+        }
         /**
          * get a copy of (rather than reference to) an object
          *
@@ -220,7 +220,7 @@ module.exports = function (grunt) {
                 return JSON.parse(JSON.stringify(obj));
             }
             return null;
-        };
+        }
         /**
          * find index of an object in array of objects
          * based on some property value
@@ -243,7 +243,7 @@ module.exports = function (grunt) {
             if (objFound === false) {
                 return -1;
             }
-        };
+        }
         /**
          * find indexes of a set of object in array of objects
          * based on some property value
@@ -263,7 +263,7 @@ module.exports = function (grunt) {
                 }
             }
             return newArr;
-        };
+        }
         /**
          * get a subset of objects in array of objects
          * based on some property value
@@ -282,7 +282,7 @@ module.exports = function (grunt) {
                 }
             }
             return idxArr;
-        };
+        }
         /**
          * sort an array of objects based on an object property
          *
@@ -303,7 +303,7 @@ module.exports = function (grunt) {
                 return 0;
             });
             return targetArray;
-        };
+        }
         /**
          * create an element
          *
@@ -323,7 +323,7 @@ module.exports = function (grunt) {
                 }
                 return el;
             }
-        };
+        }
         /**
          * creates a text node and adds it to an element
          * @param {object|node} el - the node (element) to add the text to
@@ -332,7 +332,7 @@ module.exports = function (grunt) {
         function addText(el, str) {
             var text = doc.createTextNode(str);
             el.appendChild(text);
-        };
+        }
         /**
          * finds the objects in the doc data for a fileName
          *
@@ -351,7 +351,7 @@ module.exports = function (grunt) {
                 }
             }
             return newArr;
-        };
+        }
         /**
          * add the class header content
          */
@@ -475,7 +475,7 @@ module.exports = function (grunt) {
             constructorCode.appendChild(text);
             addText(description, headerData.description);
             callback();
-        };
+        }
         /**
          * add the side nav
          */
@@ -611,7 +611,7 @@ module.exports = function (grunt) {
             section.appendChild(memberIndex);
             inPageNav.appendChild(section);
             callback();
-        };
+        }
         /**
          * add the member content
          * @param {function} callback - function to call when done
@@ -803,7 +803,7 @@ module.exports = function (grunt) {
                 }
             }
             callback();
-        };
+        }
         /**
          * gets things going
          * @param {string} docFileName - name of the HTML doc we're building
