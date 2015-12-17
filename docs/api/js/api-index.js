@@ -124,16 +124,27 @@ var BCLSVJS = (function (window, document, docData) {
             topSection = createEl('section', {id: 'top', class: 'section'}),
             //mainLink = createEl('a', {href: '//docs.videojs.com/', style: 'float:right;font-weight:bold;margin-top:-3em;background-color:#ECEEF1;padding:2px 4px;'}),
             header = createEl('h1'),
+            selectP = createEl('p', {style: 'float:right; margin: 1em 2em;'}),
+            selectEl = createEl('select', {id: 'versionSelect', style: 'width:220px'}),
+            option1 = createEl('option', {value: '../api/index.html', selected: 'selected'}),
+            option2 = createEl('option', {value: '../api-vjs4/index.html'}),
             text = document.createTextNode('Brightcove Player API Documentation Index'),
             topP,
             topPtext,
             topLink,
-            topLinkStrong;
+            topLinkStrong,
+            versionSelect;
         // add elements
         // mainLink.appendChild(document.createTextNode('Documentation Home'));
         // topSection.appendChild(mainLink);
         header.appendChild(text);
         topSection.appendChild(header);
+        option1.appendChild(document.createTextNode('5.0.0 (Current Version)'));
+        option2.appendChild(document.createTextNode('4.x (Legacy Version)'));
+        selectEl.appendChild(option1);
+        selectEl.appendChild(option2);
+        selectP.appendChild(selectEl);
+        topSection.appendChild(selectP);
         // add paragraph for videojs function
         topP = createEl('p');
         topPtext = document.createTextNode('Note that this is the Brightcove Player 2.0 (pre-lease) API documentation! If you are new to the Brightcove Player API, look first at the ');
@@ -152,6 +163,11 @@ var BCLSVJS = (function (window, document, docData) {
         row.appendChild(mainContent);
         doc_body.appendChild(row);
         main = document.getElementById('main');
+        versionSelect = document.getElementById('versionSelect');
+        versionSelect.addEventListener('change', function () {
+            var newPath = versionSelect.options[versionSelect.selectedIndex].value;
+            window.location.href = newPath;
+        });
     };
     /**
      * add the side nav

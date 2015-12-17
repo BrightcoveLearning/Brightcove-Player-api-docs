@@ -264,25 +264,7 @@ module.exports = function (grunt) {
             }
             return newArr;
         }
-        /**
-         * get a subset of objects in array of objects
-         * based on some property value
-         *
-         * @param {array} targetArray - array to search
-         * @param {string} objProperty - object property to search
-         * @param {string|number} value - value of the property to search for
-         * @return {array} array of objects with matching property value
-         */
-        function getSubArray(targetArray, objProperty, value) {
-            var i, totalItems = targetArray.length,
-                idxArr = [];
-            for (i = 0; i < totalItems; i++) {
-                if (targetArray[i][objProperty] === value) {
-                    idxArr.push(targetArray[i]);
-                }
-            }
-            return idxArr;
-        }
+
         /**
          * sort an array of objects based on an object property
          *
@@ -863,9 +845,9 @@ module.exports = function (grunt) {
             title = doc.getElementsByTagName('title')[0];
             // content wrapper
             mainContent = doc.getElementById('main');
-			inPageNav = doc.getElementById('inPageNav');
+            inPageNav = doc.getElementById('inPageNav');
             // src file is the js file of the same name
-            srcFileName = docFileName.replace('.html', '.js')
+            srcFileName = docFileName.replace('.html', '.js');
             // video.js is a special case - all others will be the same
             if (srcFileName === 'video.js') {
                 // for doc purposes, treat video like a class, though it's not
@@ -992,9 +974,9 @@ module.exports = function (grunt) {
                     });
                 });
             });
-        };
+        }
     });
     // Default task.
     grunt.registerTask('no-clone', ['shell:generateJSON', 'copy:fontawesome', 'concat', 'uglify', 'createFiles']);
     grunt.registerTask('default', ['shell:cloneVideoJS', 'no-clone']);
-}
+};
