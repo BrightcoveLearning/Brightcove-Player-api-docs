@@ -15,6 +15,7 @@ var BCLSVJS = (function (window, document, docData) {
         bclslog,
         addHeaderContent,
         addIndex,
+        playerVersion = '5.0.7',
         init;
     /**
      * Logging function - safe for IE
@@ -137,9 +138,10 @@ var BCLSVJS = (function (window, document, docData) {
         // add elements
         // mainLink.appendChild(document.createTextNode('Documentation Home'));
         // topSection.appendChild(mainLink);
+        header.setAttribute('style', 'color:#F3951D');
         header.appendChild(text);
         topSection.appendChild(header);
-        option1.appendChild(document.createTextNode('5.0.0 (Current Version)'));
+        option1.appendChild(document.createTextNode(playerVersion + ' (Current Version)'));
         option2.appendChild(document.createTextNode('4.x (Legacy Version)'));
         selectEl.appendChild(option1);
         selectEl.appendChild(option2);
