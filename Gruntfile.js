@@ -866,7 +866,6 @@ module.exports = function (grunt) {
                     classFilePath = doc_data.thisClass.headerInfo.meta.filename;
                 }
                 // get docsFolder to complete path for links to src
-                console.log(classes.thisClass[idx].meta.path);
                 docsFolder = classes.thisClass[idx].meta.path.substr(doc_data.thisClass.headerInfo.meta.path.lastIndexOf('/js')) + '/';
                 // set the doc title
                 text = doc.createTextNode(doc_data.thisClass.headerInfo.name);
