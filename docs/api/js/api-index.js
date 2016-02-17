@@ -15,7 +15,7 @@ var BCLSVJS = (function (window, document, docData) {
         bclslog,
         addHeaderContent,
         addIndex,
-        playerVersion = '5.0.7',
+        playerVersion = '5.1.5',
         init;
     /**
      * Logging function - safe for IE
@@ -142,7 +142,7 @@ var BCLSVJS = (function (window, document, docData) {
         header.appendChild(text);
         topSection.appendChild(header);
         option1.appendChild(document.createTextNode(playerVersion + ' (Current Version)'));
-        option2.appendChild(document.createTextNode('4.x (Legacy Version)'));
+        option2.appendChild(document.createTextNode('1.x (Legacy Version)'));
         selectEl.appendChild(option1);
         selectEl.appendChild(option2);
         selectP.appendChild(selectEl);
