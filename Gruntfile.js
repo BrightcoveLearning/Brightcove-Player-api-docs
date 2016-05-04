@@ -54,6 +54,7 @@ module.exports = function (grunt) {
             XMLSerializer = require('xmldom').XMLSerializer,
             doc,
             doc_data = {},
+            idx,
             docsPathStem = 'https://github.com/videojs/video.js/blob/master/src',
             docsFolder,
             title,
@@ -73,6 +74,11 @@ module.exports = function (grunt) {
             docContentStr;
         //read the JSDoc JSON into a variable
         docData = grunt.file.readJSON('cumulative.json');
+        //remove pack object
+        idx = findObjectInArray(docData, 'kind', 'package');
+        if (idx > -1) {
+            docData.splice(idx, 1);
+        }
         // extract the class items from the doc data
         classData = getSubArray(docData, 'kind', 'class');
         // now create the array of filenames
