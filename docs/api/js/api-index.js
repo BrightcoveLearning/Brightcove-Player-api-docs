@@ -15,7 +15,7 @@ var BCLSVJS = (function (window, document, docData) {
         bclslog,
         addHeaderContent,
         addIndex,
-        playerVersion = '5.6.2',
+        playerVersion = '5.7.1',
         init;
     /**
      * Logging function - safe for IE
